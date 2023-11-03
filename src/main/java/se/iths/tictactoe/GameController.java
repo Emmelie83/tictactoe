@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -45,6 +46,12 @@ public class GameController implements Initializable {
 
     private int playerTurn = 0;
 
+    private int counter = 0;
+
+    private int playerOneScore = 0;
+
+    private int playerTwoScore = 0;
+
     ArrayList<Button> buttons;
 
 
@@ -53,6 +60,7 @@ public class GameController implements Initializable {
         buttons = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
 
         buttons.forEach(button -> {
+            resetButton(button);
             setupButton(button);
             button.setFocusTraversable(false);
         });
@@ -61,12 +69,13 @@ public class GameController implements Initializable {
     @FXML
     void restartGame(ActionEvent event) {
         buttons.forEach(this::resetButton);
-        winnerText.setText("Tic-Tac-Toe");
+        winnerText.setText("Tic Tac Toe");
+        counter = 0;
     }
 
     public void resetButton(Button button){
         button.setDisable(false);
-        button.setText("");
+        button.setText(" ");
     }
 
     private void setupButton(Button button) {
@@ -80,11 +89,20 @@ public class GameController implements Initializable {
     public void setPlayerSymbol(Button button){
         if(playerTurn % 2 == 0){
             button.setText("X");
+            button.setTextFill(Color.RED);
             playerTurn = 1;
         } else{
             button.setText("O");
+            button.setTextFill(Color.GREEN);
             playerTurn = 0;
         }
+        counter++;
+    }
+
+    public void onGameOver() {
+        buttons.forEach(button -> {
+            button.setDisable(true);
+        });
     }
 
     public void checkIfGameIsOver(){
@@ -101,16 +119,20 @@ public class GameController implements Initializable {
                 default -> null;
             };
 
-            //X winner
             if (line.equals("XXX")) {
                 winnerText.setText("X won!");
+                playerOneScore++;
+                onGameOver();
             }
 
-            //O winner
             else if (line.equals("OOO")) {
                 winnerText.setText("O won!");
+                playerTwoScore++;
+                onGameOver();
             }
-
+        }
+        if (counter >= 9) {
+            winnerText.setText("Tie!");
         }
     }
 }
