@@ -1,4 +1,4 @@
-package se.iths.tictactoe;
+package se.iths.tictactoe.player;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,6 @@ public class PlayerController {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("game-view.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
-        //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(tableViewScene);

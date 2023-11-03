@@ -1,4 +1,4 @@
-package se.iths.tictactoe;
+package se.iths.tictactoe.server;
 
 import java.io.IOException;
 import java.net.URI;

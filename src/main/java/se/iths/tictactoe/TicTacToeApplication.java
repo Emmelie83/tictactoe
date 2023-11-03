@@ -6,11 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class GameApplication extends Application {
+public class TicTacToeApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("start-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
         primaryStage.setTitle("Tic-Tac-Toe");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

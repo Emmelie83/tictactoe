@@ -1,4 +1,4 @@
-package se.iths.tictactoe;
+package se.iths.tictactoe.server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
