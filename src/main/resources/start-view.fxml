@@ -11,7 +11,7 @@
                <Font size="38.0" />
            </font>
        </Text>
-      <Button layoutX="87.0" layoutY="200.0" mnemonicParsing="false" onAction="#switchToGameView1" prefHeight="39.0" prefWidth="130.0" text="vs. computer">
+      <Button layoutX="87.0" layoutY="200.0" mnemonicParsing="false" onAction="#switchToDifficultyView" prefHeight="39.0" prefWidth="130.0" text="vs. computer">
          <font>
             <Font size="18.0" />
          </font>

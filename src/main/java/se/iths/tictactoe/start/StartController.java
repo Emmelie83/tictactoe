@@ -28,7 +28,19 @@ public class StartController {
 
     public void switchToPlayerView(ActionEvent event) throws IOException
     {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("player-view.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/player-view.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void switchToDifficultyView(ActionEvent event) throws IOException
+    {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/difficulty-view.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
 

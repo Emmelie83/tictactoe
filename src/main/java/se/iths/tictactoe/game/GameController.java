@@ -2,19 +2,17 @@ package se.iths.tictactoe.game;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import se.iths.tictactoe.services.MappingService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -63,6 +61,8 @@ public class GameController implements Initializable {
     private GameModel gameModel = new GameModel(3);
     private MappingService mappingService = new MappingService();
 
+    private int difficulty;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,27 +77,29 @@ public class GameController implements Initializable {
         }
     }
 
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     private void setOnClick(Button button, int i, int j) {
         button.setOnMouseClicked(mouseEvent -> {
-            if (playerSetButton(i, j)) {
-
-                return;
-            }
-            computerSetButton();
+            if (playerTurn(i, j)) return;
+            computerTurn();
         });
     }
 
-    private boolean playerSetButton(int i, int j) {
-        gameModel.playerMove(i, j);
+    private boolean playerTurn(int i, int j) {
+        gameModel.isBoardSet(i, j, Player.human);
         setButton(i, j);
         gameModel.changePlayer();
         return isGameOver();
     }
 
     //region computer
-    private void computerSetButton() {
+    private void computerTurn() {
         flowPane.setDisable(true);
-        int[] boardIndex = gameModel.computerBestMove();
+        int[] boardIndex = gameModel.computerBestMove(difficulty);
+        gameModel.isBoardSet(boardIndex[0], boardIndex[1], Player.computer);
         setButton(boardIndex[0], boardIndex[1]);
         gameModel.changePlayer();
         isGameOver();
@@ -130,7 +132,7 @@ public class GameController implements Initializable {
     }
 
     private boolean isGameOver() {
-        if (gameModel.isGameOver()) {
+        if (gameModel.isGameOver(gameModel.getBoard())) {
             setWinner();
             setScore();
             onGameOver();
@@ -141,15 +143,9 @@ public class GameController implements Initializable {
 
     public void setWinner() {
         Player winner = gameModel.getWinner();
-        if (winner == Player.human) {
-            winnerText.setText("X won!");
-        }
-        if (winner == Player.computer) {
-            winnerText.setText("O won!");
-        }
-        if (winner == Player.none) {
-            winnerText.setText("Draw!");
-        }
+        if (winner == Player.human) winnerText.setText("X won!");
+        if (winner == Player.computer) winnerText.setText("O won!");
+        if (winner == Player.none) winnerText.setText("Draw!");
     }
 
     public void setScore() {
@@ -178,22 +174,10 @@ public class GameController implements Initializable {
         button.setText(mappingService.getValueFromPlayerEnum(Player.none));
     }
 
-    public void switchToScoreView() throws IOException
-    {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/score-view.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-
-        Stage window = (Stage) tableViewParent.getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
 
     @FXML
     public void handleCloseButtonAction(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
 }
