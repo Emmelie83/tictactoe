@@ -75,9 +75,7 @@ public class GameModel {
         boolean isFree = true;
         do {
             i = random.nextInt(3);
-            System.out.println(i);
             j = random.nextInt(3);
-            System.out.println(j);
             isFree = isBoardSet(board, i, j, Player.computer);
         } while (isFree == false);
         return new int[] {i ,j };
