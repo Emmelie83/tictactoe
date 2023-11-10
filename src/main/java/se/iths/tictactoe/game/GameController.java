@@ -79,6 +79,10 @@ public class GameController implements Initializable {
         this.difficulty = difficulty;
     }
 
+    public void setGameMode(GameMode gameMode) {
+        gameModel.setGameMode(gameMode);
+    }
+
     private void setOnClick(Button button, int i, int j) {
         button.setOnMouseClicked(mouseEvent -> {
             if (playerTurn(i, j)) return;
@@ -88,7 +92,7 @@ public class GameController implements Initializable {
 
     private boolean playerTurn(int i, int j) {
         int[][] board = gameModel.getBoard();
-        gameModel.isBoardSet(board, i, j, Player.HUMAN);
+        gameModel.isBoardSet(board, i, j, Player.PLAYER1);
         setButton(i, j);
         gameModel.changePlayer();
         return isGameOver();
@@ -143,7 +147,7 @@ public class GameController implements Initializable {
 
     public void setWinner() {
         Player winner = gameModel.getWinner();
-        if (winner == Player.HUMAN) winnerText.setText("X won!");
+        if (winner == Player.PLAYER1) winnerText.setText("X won!");
         if (winner == Player.COMPUTER) winnerText.setText("O won!");
         if (winner == Player.NONE) winnerText.setText("Draw!");
     }

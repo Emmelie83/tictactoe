@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import se.iths.tictactoe.game.GameController;
+import se.iths.tictactoe.game.GameMode;
 
 import java.io.IOException;
 
@@ -30,6 +31,7 @@ public class DifficultyController {
         Scene scene = new Scene(parent);
         GameController gc = fxmlLoader.getController();
         gc.setDifficulty(value);
+        gc.setGameMode(GameMode.PLAYERVSCOMPUTER);
 
 
 

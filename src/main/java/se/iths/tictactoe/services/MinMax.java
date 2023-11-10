@@ -44,7 +44,7 @@ public class MinMax {
         if (player == Player.COMPUTER)
             boardValue = 10;
 
-        if (player == Player.HUMAN)
+        if (player == Player.PLAYER1)
             boardValue = -10;
 
         if (Math.abs(boardValue) == 10 || depth == 0 || gameModel.boardIsFull(board)) return boardValue;
@@ -77,7 +77,7 @@ public class MinMax {
 
                     if (board[i][j] == Player.NONE.ordinal()) {
 
-                        board[i][j] = Player.HUMAN.ordinal();
+                        board[i][j] = Player.PLAYER1.ordinal();
 
                         int current = minimax(board, depth - 1, !isMaxComputerMove);
                         best = Math.min(best, current);

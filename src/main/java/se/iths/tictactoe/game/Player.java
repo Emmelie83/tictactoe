@@ -2,6 +2,7 @@ package se.iths.tictactoe.game;
 
 public enum Player {
     NONE,
-    HUMAN,
+    PLAYER1,
+    PLAYER2,
     COMPUTER
 }

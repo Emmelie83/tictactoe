@@ -23,7 +23,7 @@ public class GameModelTest {
                 {0, 2, 0}};
         int row = move[0];
         int col = move[1];
-        boolean result = gameModel.isBoardSet(board, row, col, Player.HUMAN);
+        boolean result = gameModel.isBoardSet(board, row, col, Player.PLAYER1);
         assertThat(result).isTrue();
     }
 
@@ -46,7 +46,7 @@ public class GameModelTest {
                 {0, 2, 0}};
         int row = move[0];
         int col = move[1];
-        boolean result = gameModel.isBoardSet(board, row, col, Player.HUMAN);
+        boolean result = gameModel.isBoardSet(board, row, col, Player.PLAYER1);
         assertThat(result).isFalse();
     }
 

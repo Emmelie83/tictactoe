@@ -12,7 +12,9 @@ public class GameModel {
     private int playerScore = 0;
     private int computerScore = 0;
     private Player winner;
-    private Player currentPlayer = Player.HUMAN;
+    private Player currentPlayer = Player.PLAYER1;
+
+    private GameMode gameMode = GameMode.NONE;
     private MinMax minMax = new MinMax(this);
 
 
@@ -42,10 +44,14 @@ public class GameModel {
         return computerScore;
     }
 
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
     //region player
 
     public void resetPlayer() {
-        currentPlayer = Player.HUMAN;
+        currentPlayer = Player.PLAYER1;
     }
     //endregion
 
@@ -84,8 +90,8 @@ public class GameModel {
         return true;
     }
     public void changePlayer() {
-        if (currentPlayer == Player.HUMAN) currentPlayer = Player.COMPUTER;
-        else currentPlayer = Player.HUMAN;
+        if (currentPlayer == Player.PLAYER1) currentPlayer = Player.COMPUTER;
+        else currentPlayer = Player.PLAYER1;
     }
 
     public boolean isGameOver(int[][] board) {
@@ -137,7 +143,7 @@ public class GameModel {
     }
 
     private void updateScore() {
-        if (winner == Player.HUMAN) playerScore++;
+        if (winner == Player.PLAYER1) playerScore++;
         if (winner == Player.COMPUTER) computerScore++;
     }
     //endregion

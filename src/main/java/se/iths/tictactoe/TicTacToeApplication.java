@@ -10,12 +10,11 @@ public class TicTacToeApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/difficulty-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/start-view.fxml"));
         primaryStage.setTitle("Tic-Tac-Toe");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

@@ -1,5 +1,3 @@
-package se.iths.tictactoe.server;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -7,12 +5,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class HttpConsume {
+public class ServerClient2Test {
+    HttpClient client = HttpClient.newHttpClient();
 
-    public static void main(String[] args) {
-
-        HttpClient client = HttpClient.newHttpClient();
-
+    public void getMessage() {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe/raw")) // raw = one line per message
                 .build();
