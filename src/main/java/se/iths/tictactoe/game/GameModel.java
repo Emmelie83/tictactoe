@@ -6,24 +6,23 @@ import java.util.Random;
 
 public class GameModel {
 
-
+    private static final int BOARD_SIZE = 3;
     private int[][] board;
 
     private int playerScore = 0;
 
     private int computerScore = 0;
 
-
     private Player winner;
 
-    private Player currentPlayer = Player.human;
+    private Player currentPlayer = Player.HUMAN;
 
     private MinMax minMax = new MinMax(this);
 
 
 
-    public GameModel(int size) {
-        this.board = new int[size][size];
+    public GameModel() {
+        this.board = new int[BOARD_SIZE][BOARD_SIZE];
         resetPlayer();
     }
 
@@ -49,9 +48,8 @@ public class GameModel {
 
     //region player
 
-
     public void resetPlayer() {
-        currentPlayer = Player.human;
+        currentPlayer = Player.HUMAN;
     }
     //endregion
 
@@ -76,7 +74,7 @@ public class GameModel {
         do {
             i = random.nextInt(3);
             j = random.nextInt(3);
-            isFree = isBoardSet(board, i, j, Player.computer);
+            isFree = isBoardSet(board, i, j, Player.COMPUTER);
         } while (isFree == false);
         return new int[] {i ,j };
     }
@@ -85,33 +83,33 @@ public class GameModel {
 
     //region common
     public boolean isBoardSet(int[][] board, int i, int j, Player player) {
-        if (board[i][j] != Player.none.ordinal()) return false;
+        if (board[i][j] != Player.NONE.ordinal()) return false;
         this.board[i][j] = player.ordinal();
         return true;
     }
     public void changePlayer() {
-        if (currentPlayer == Player.human) currentPlayer = Player.computer;
-        else currentPlayer = Player.human;
+        if (currentPlayer == Player.HUMAN) currentPlayer = Player.COMPUTER;
+        else currentPlayer = Player.HUMAN;
     }
 
     public boolean isGameOver(int[][] board) {
         Player value = evaluateBoard(board);
-        if (value != Player.none) {
+        if (value != Player.NONE) {
             winner = value;
             updateScore();
             return true;
         }
         if (boardIsFull(board)) {
-            winner = Player.none;
+            winner = Player.NONE;
             return true;
         }
         return false;
     }
 
     public boolean boardIsFull(int[][] board) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[i][j] == Player.none.ordinal()) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (board[i][j] == Player.NONE.ordinal()) {
                     return false;
                 }
             }
@@ -121,17 +119,17 @@ public class GameModel {
 
     public Player evaluateBoard(int[][] board) {
         for (int i = 0; i < 3; i++) {
-            if (board[i][0] != Player.none.ordinal() && board[i][0] == board[i][1] && board[i][0] == board[i][2])
+            if (board[i][0] != Player.NONE.ordinal() && board[i][0] == board[i][1] && board[i][0] == board[i][2])
                 return mapOrdinalToPlayerEnum(board[i][0]);
-            if (board[0][i] != Player.none.ordinal() && board[0][i] == board[1][i] && board[0][i] == board[2][i])
+            if (board[0][i] != Player.NONE.ordinal() && board[0][i] == board[1][i] && board[0][i] == board[2][i])
                 return mapOrdinalToPlayerEnum(board[0][i]);
         }
-        if (board[0][0] != Player.none.ordinal() && board[0][0] == board[1][1] && board[0][0] == board[2][2])
+        if (board[0][0] != Player.NONE.ordinal() && board[0][0] == board[1][1] && board[0][0] == board[2][2])
             return mapOrdinalToPlayerEnum(board[0][0]);
-        if (board[0][2] != Player.none.ordinal() && board[0][2] == board[1][1] && board[0][2] == board[2][0])
+        if (board[0][2] != Player.NONE.ordinal() && board[0][2] == board[1][1] && board[0][2] == board[2][0])
             return mapOrdinalToPlayerEnum(board[0][2]);
 
-        return Player.none;
+        return Player.NONE;
     }
 
      public Player mapOrdinalToPlayerEnum(int ordinal) {
@@ -143,15 +141,15 @@ public class GameModel {
     }
 
     private void updateScore() {
-        if (winner == Player.human) playerScore++;
-        if (winner == Player.computer) computerScore++;
+        if (winner == Player.HUMAN) playerScore++;
+        if (winner == Player.COMPUTER) computerScore++;
     }
     //endregion
 
     public void resetBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = Player.none.ordinal();
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                board[i][j] = Player.NONE.ordinal();
             }
         }
     }

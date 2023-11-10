@@ -56,7 +56,7 @@ public class GameController implements Initializable {
 
     private Button[][] buttons;
 
-    private GameModel gameModel = new GameModel(3);
+    private GameModel gameModel = new GameModel();
     private MappingService mappingService = new MappingService();
 
     private int difficulty;
@@ -88,7 +88,7 @@ public class GameController implements Initializable {
 
     private boolean playerTurn(int i, int j) {
         int[][] board = gameModel.getBoard();
-        gameModel.isBoardSet(board, i, j, Player.human);
+        gameModel.isBoardSet(board, i, j, Player.HUMAN);
         setButton(i, j);
         gameModel.changePlayer();
         return isGameOver();
@@ -99,7 +99,7 @@ public class GameController implements Initializable {
         flowPane.setDisable(true);
         int[] boardIndex = gameModel.computerMove(difficulty);
         int[][] board = gameModel.getBoard();
-        gameModel.isBoardSet(board, boardIndex[0], boardIndex[1], Player.computer);
+        gameModel.isBoardSet(board, boardIndex[0], boardIndex[1], Player.COMPUTER);
         setButton(boardIndex[0], boardIndex[1]);
         gameModel.changePlayer();
         isGameOver();
@@ -110,7 +110,7 @@ public class GameController implements Initializable {
 
     private void setButton(int i, int j) {
         Player currentPlayer = gameModel.getCurrentPlayer();
-        if (currentPlayer == Player.computer) {
+        if (currentPlayer == Player.COMPUTER) {
             buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
             buttons[i][j].setTextFill(Color.GREEN);
 
@@ -143,9 +143,9 @@ public class GameController implements Initializable {
 
     public void setWinner() {
         Player winner = gameModel.getWinner();
-        if (winner == Player.human) winnerText.setText("X won!");
-        if (winner == Player.computer) winnerText.setText("O won!");
-        if (winner == Player.none) winnerText.setText("Draw!");
+        if (winner == Player.HUMAN) winnerText.setText("X won!");
+        if (winner == Player.COMPUTER) winnerText.setText("O won!");
+        if (winner == Player.NONE) winnerText.setText("Draw!");
     }
 
     public void setScore() {
@@ -171,7 +171,7 @@ public class GameController implements Initializable {
 
     public void resetButton(Button button){
         button.setDisable(false);
-        button.setText(mappingService.getValueFromPlayerEnum(Player.none));
+        button.setText(mappingService.getValueFromPlayerEnum(Player.NONE));
     }
 
 

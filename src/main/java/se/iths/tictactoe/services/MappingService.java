@@ -21,8 +21,8 @@ public class MappingService {
     }
 
     private void initPlayerToValue() {
-        playerToValue[Player.none.ordinal()] = " ";
-        playerToValue[Player.human.ordinal()] = "X";
-        playerToValue[Player.computer.ordinal()] = "O";
+        playerToValue[Player.NONE.ordinal()] = " ";
+        playerToValue[Player.HUMAN.ordinal()] = "X";
+        playerToValue[Player.COMPUTER.ordinal()] = "O";
     }
 }

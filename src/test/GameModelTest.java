@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class GameModelTest {
 
-    GameModel gameModel = new GameModel(3);
+    GameModel gameModel = new GameModel();
 
 
     @ParameterizedTest
@@ -23,7 +23,7 @@ public class GameModelTest {
                 {0, 2, 0}};
         int row = move[0];
         int col = move[1];
-        boolean result = gameModel.isBoardSet(board, row, col, Player.human);
+        boolean result = gameModel.isBoardSet(board, row, col, Player.HUMAN);
         assertThat(result).isTrue();
     }
 
@@ -46,7 +46,7 @@ public class GameModelTest {
                 {0, 2, 0}};
         int row = move[0];
         int col = move[1];
-        boolean result = gameModel.isBoardSet(board, row, col, Player.human);
+        boolean result = gameModel.isBoardSet(board, row, col, Player.HUMAN);
         assertThat(result).isFalse();
     }
 

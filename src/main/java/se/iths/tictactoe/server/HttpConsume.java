@@ -14,7 +14,7 @@ public class HttpConsume {
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe/raw"))
+                .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe/raw")) // raw = one line per message
                 .build();
 
         client.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
@@ -24,11 +24,12 @@ public class HttpConsume {
                     reader.lines().forEach(line -> {
                         // process each line here
                         //Replace with updating model with incoming text message. Do this in Platform.runLater()
+                        //Check for valid input. Strings may be empty.
                         System.out.println(Thread.currentThread().getName());
                         System.out.println(line);
                     });
                 });
-
+        //Not necessary in JavaFx Application
         try {
             Thread.sleep(10000000);
         } catch (InterruptedException e) {

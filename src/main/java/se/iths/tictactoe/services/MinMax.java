@@ -19,12 +19,12 @@ public class MinMax {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++)
-                if (board[i][j] == Player.none.ordinal()) {
-                    board[i][j] = Player.computer.ordinal();
+                if (board[i][j] == Player.NONE.ordinal()) {
+                    board[i][j] = Player.COMPUTER.ordinal();
 
                     int moveVal = minimax(board, MAX_DEPTH, false);
 
-                    board[i][j] = Player.none.ordinal();
+                    board[i][j] = Player.NONE.ordinal();
 
                     if (moveVal > bestVal) {
                         bestMove[0] = i;
@@ -41,10 +41,10 @@ public class MinMax {
         Player player = gameModel.evaluateBoard(board);
 
         int boardValue = 0;
-        if (player == Player.computer)
+        if (player == Player.COMPUTER)
             boardValue = 10;
 
-        if (player == Player.human)
+        if (player == Player.HUMAN)
             boardValue = -10;
 
         if (Math.abs(boardValue) == 10 || depth == 0 || gameModel.boardIsFull(board)) return boardValue;
@@ -56,13 +56,13 @@ public class MinMax {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
 
-                    if (board[i][j] == Player.none.ordinal()) {
-                        board[i][j] = Player.computer.ordinal();
+                    if (board[i][j] == Player.NONE.ordinal()) {
+                        board[i][j] = Player.COMPUTER.ordinal();
 
                         int current = minimax(board, depth - 1, !isMaxComputerMove);
                         best = Math.max(best, current);
 
-                        board[i][j] = Player.none.ordinal();
+                        board[i][j] = Player.NONE.ordinal();
                     }
                 }
             }
@@ -75,14 +75,14 @@ public class MinMax {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
 
-                    if (board[i][j] == Player.none.ordinal()) {
+                    if (board[i][j] == Player.NONE.ordinal()) {
 
-                        board[i][j] = Player.human.ordinal();
+                        board[i][j] = Player.HUMAN.ordinal();
 
                         int current = minimax(board, depth - 1, !isMaxComputerMove);
                         best = Math.min(best, current);
 
-                        board[i][j] = Player.none.ordinal();
+                        board[i][j] = Player.NONE.ordinal();
                     }
                 }
             }
