@@ -7,16 +7,12 @@ import java.util.Random;
 public class GameModel {
 
     private static final int BOARD_SIZE = 3;
+    private static final String SERVER_URL = "https://ntfy.sh/ej-tic-tac-toe";
     private int[][] board;
-
     private int playerScore = 0;
-
     private int computerScore = 0;
-
     private Player winner;
-
     private Player currentPlayer = Player.HUMAN;
-
     private MinMax minMax = new MinMax(this);
 
 
