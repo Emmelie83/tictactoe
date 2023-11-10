@@ -1,4 +1,4 @@
-package se.iths.tictactoe;
+package se.iths.tictactoe.difficulty;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

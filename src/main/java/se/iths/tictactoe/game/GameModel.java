@@ -58,7 +58,7 @@ public class GameModel {
 
     //region computer
 
-    public int[] computerBestMove(int difficulty) {
+    public int[] computerMove(int difficulty) {
         int[] bestMove = minMax.findBestMove(board);
         Random random = new Random();
         int randomNumber = random.nextInt(100);
@@ -78,7 +78,7 @@ public class GameModel {
             System.out.println(i);
             j = random.nextInt(3);
             System.out.println(j);
-            isFree = isBoardSet(i, j, Player.computer);
+            isFree = isBoardSet(board, i, j, Player.computer);
         } while (isFree == false);
         return new int[] {i ,j };
     }
@@ -86,7 +86,7 @@ public class GameModel {
 
 
     //region common
-    public boolean isBoardSet(int i, int j, Player player) {
+    public boolean isBoardSet(int[][] board, int i, int j, Player player) {
         if (board[i][j] != Player.none.ordinal()) return false;
         this.board[i][j] = player.ordinal();
         return true;

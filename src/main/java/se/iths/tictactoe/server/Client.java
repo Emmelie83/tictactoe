@@ -1,4 +1,4 @@
-/* package se.iths.tictactoe;
+package se.iths.tictactoe.server;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,7 +11,7 @@ public class Client {
         //Serverns ip address : 127.0.0.1, 192.168.1.179, localhost
         //Serverns port nummer 16-bit: 6000
 
-        try (Socket socket = new Socket("127.0.0.1",6000)) {
+        try (Socket socket = new Socket("127.0.0.1", 6000)) {
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             bufferedWriter.write("Hello from client!\n");
             bufferedWriter.flush();
@@ -25,4 +25,4 @@ public class Client {
 
 
     }
-} */
+}

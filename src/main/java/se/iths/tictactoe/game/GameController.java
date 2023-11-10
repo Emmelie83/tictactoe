@@ -3,10 +3,8 @@ package se.iths.tictactoe.game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -89,7 +87,8 @@ public class GameController implements Initializable {
     }
 
     private boolean playerTurn(int i, int j) {
-        gameModel.isBoardSet(i, j, Player.human);
+        int[][] board = gameModel.getBoard();
+        gameModel.isBoardSet(board, i, j, Player.human);
         setButton(i, j);
         gameModel.changePlayer();
         return isGameOver();
@@ -98,8 +97,9 @@ public class GameController implements Initializable {
     //region computer
     private void computerTurn() {
         flowPane.setDisable(true);
-        int[] boardIndex = gameModel.computerBestMove(difficulty);
-        gameModel.isBoardSet(boardIndex[0], boardIndex[1], Player.computer);
+        int[] boardIndex = gameModel.computerMove(difficulty);
+        int[][] board = gameModel.getBoard();
+        gameModel.isBoardSet(board, boardIndex[0], boardIndex[1], Player.computer);
         setButton(boardIndex[0], boardIndex[1]);
         gameModel.changePlayer();
         isGameOver();
