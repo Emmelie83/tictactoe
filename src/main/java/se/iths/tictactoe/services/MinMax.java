@@ -1,7 +1,7 @@
 package se.iths.tictactoe.services;
 
 import se.iths.tictactoe.game.GameModel;
-import se.iths.tictactoe.game.Player;
+import se.iths.tictactoe.enums.Player;
 
 public class MinMax {
 

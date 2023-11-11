@@ -9,12 +9,12 @@ import java.net.http.HttpResponse;
 public class HttpPublish {
     static HttpClient client = HttpClient.newHttpClient();
 
-    public static int sendGameState(String gameState) throws IOException, InterruptedException {
+    public static int sendGameState(String board, String command) throws IOException, InterruptedException {
         //Reuse same client object during our programs lifetime
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe")) //Change java23iths to another topic name
-                .POST(HttpRequest.BodyPublishers.ofString(gameState)) //Replace with your text
+                .POST(HttpRequest.BodyPublishers.ofString(board + "," + command)) //Replace with your text
                 .build();
 
         HttpResponse<Void> response =

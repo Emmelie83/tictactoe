@@ -1,5 +1,8 @@
 package se.iths.tictactoe.game;
 
+import se.iths.tictactoe.enums.GameMode;
+import se.iths.tictactoe.enums.Player;
+import se.iths.tictactoe.services.MappingService;
 import se.iths.tictactoe.services.MinMax;
 
 import java.util.Random;
@@ -7,6 +10,7 @@ import java.util.Random;
 public class GameModel {
 
     private static final int BOARD_SIZE = 3;
+    public String currentBoardString = "";
     private int[][] board;
     private int playerXScore = 0;
     private int playerOScore = 0;
@@ -15,6 +19,7 @@ public class GameModel {
     private Player currentPlayer = Player.NONE;
     private GameMode gameMode = GameMode.NONE;
     private MinMax minMax = new MinMax(this);
+    private MappingService mappingService = new MappingService();
 
 
     public GameModel() {
@@ -27,10 +32,28 @@ public class GameModel {
         return board;
     }
 
+    public void setNewBoard(int[][] board) {
+        this.board = board;
+    }
+
+    public void resetCurrentBoardString() {
+        currentBoardString = "";
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
+    void gameModePlayerVsPlayerSetPlayer1() {
+        if(currentPlayer == Player.NONE) {
+            currentPlayer = Player.PLAYER1;
+        }
+    }
 
+    public void gameModePlayerVsPlayerSetPlayer2() {
+        if(currentPlayer == Player.NONE) {
+            currentPlayer = Player.PLAYER2;
+        }
+    }
 
     public Player getWinner() {
         return winner;
@@ -50,7 +73,9 @@ public class GameModel {
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
-        if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) {
+            currentPlayer = Player.PLAYER1;
+        }
     }
 
 
@@ -84,7 +109,8 @@ public class GameModel {
     }
 
     public void resetPlayer() {
-        currentPlayer = Player.PLAYER1;
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
+        //else currentPlayer = Player.NONE;
     }
 
     public boolean isBoardSet(int[][] board, int i, int j, Player player) {
@@ -121,24 +147,18 @@ public class GameModel {
     public Player evaluateBoard(int[][] board) {
         for (int i = 0; i < 3; i++) {
             if (board[i][0] != Player.NONE.ordinal() && board[i][0] == board[i][1] && board[i][0] == board[i][2])
-                return mapOrdinalToPlayerEnum(board[i][0]);
+                return mappingService.mapOrdinalToPlayerEnum(board[i][0]);
             if (board[0][i] != Player.NONE.ordinal() && board[0][i] == board[1][i] && board[0][i] == board[2][i])
-                return mapOrdinalToPlayerEnum(board[0][i]);
+                return mappingService.mapOrdinalToPlayerEnum(board[0][i]);
         }
         if (board[0][0] != Player.NONE.ordinal() && board[0][0] == board[1][1] && board[0][0] == board[2][2])
-            return mapOrdinalToPlayerEnum(board[0][0]);
+            return mappingService.mapOrdinalToPlayerEnum(board[0][0]);
         if (board[0][2] != Player.NONE.ordinal() && board[0][2] == board[1][1] && board[0][2] == board[2][0])
-            return mapOrdinalToPlayerEnum(board[0][2]);
+            return mappingService.mapOrdinalToPlayerEnum(board[0][2]);
 
         return Player.NONE;
     }
 
-     public Player mapOrdinalToPlayerEnum(int ordinal) {
-        for (Player value : Player.values()) {
-            if(value.ordinal() == ordinal) return value;
-        }
-        return null;
-    }
 
     private void updateScore() {
         if (winner == Player.PLAYER1) playerXScore++;

@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import se.iths.tictactoe.game.GameController;
-import se.iths.tictactoe.game.GameMode;
+import se.iths.tictactoe.enums.GameMode;
 
 import java.io.IOException;
 

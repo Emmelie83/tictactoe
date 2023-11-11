@@ -1,30 +1,50 @@
 package se.iths.tictactoe.services;
 
-import se.iths.tictactoe.game.Player;
+import javafx.scene.paint.Color;
+import se.iths.tictactoe.enums.Player;
 
 public class MappingService {
 
 
-    private String[] playerToValue = new String[4];
+    private Color[] playerToColor = new Color[Player.COMPUTER.ordinal()+1];
+    private String[] playerToValue = new String[Player.COMPUTER.ordinal()+1];
 
     public MappingService() {
         initPlayerToValue();
+        initPlayerToColor();
     }
 
     public String getValueFromPlayerEnum(Player player) {
         try {
             return playerToValue[player.ordinal()];
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Unable to map enum to value");
+            System.out.println("getValueFromPlayerEnum() Unable to map enum to value");
             return "E";
         }
     }
+
+    public Color getColorFromPlayerEnum(Player player) {
+        try {
+            return playerToColor[player.ordinal()];
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("getColorFromPlayerEnum() Unable to map enum to value");
+            return Color.BLACK;
+        }
+    }
+
 
     private void initPlayerToValue() {
         playerToValue[Player.NONE.ordinal()] = " ";
         playerToValue[Player.PLAYER1.ordinal()] = "X";
         playerToValue[Player.PLAYER2.ordinal()] = "O";
         playerToValue[Player.COMPUTER.ordinal()] = "O";
+    }
+
+    private void initPlayerToColor() {
+        playerToColor[Player.NONE.ordinal()] = Color.TRANSPARENT;
+        playerToColor[Player.PLAYER1.ordinal()] = Color.RED;
+        playerToColor[Player.PLAYER2.ordinal()] = Color.GREEN;
+        playerToColor[Player.COMPUTER.ordinal()] = Color.GREEN;
     }
 
     public String boardToString(int[][] board) {
@@ -50,5 +70,12 @@ public class MappingService {
             board[row][col] = Character.getNumericValue(chars[i]);
         }
         return board;
+    }
+
+    public Player mapOrdinalToPlayerEnum(int ordinal) {
+        for (Player value : Player.values()) {
+            if(value.ordinal() == ordinal) return value;
+        }
+        return null;
     }
 }

@@ -53,7 +53,7 @@
             </children>
         </FlowPane>
 
-        <Button layoutX="178.0" layoutY="400.0" mnemonicParsing="false" onAction="#resetGame" text="Play again">
+        <Button fx:id="playAgainButton" layoutX="178.0" layoutY="400.0" mnemonicParsing="false" onAction="#playAgain" text="Play again" visible="false">
          <font>
             <Font size="18.0" />
          </font></Button>

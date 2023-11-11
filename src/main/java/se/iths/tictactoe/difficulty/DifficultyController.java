@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
 import javafx.stage.Stage;
 import se.iths.tictactoe.game.GameController;
-import se.iths.tictactoe.game.GameMode;
+import se.iths.tictactoe.enums.GameMode;
 
 import java.io.IOException;
 
