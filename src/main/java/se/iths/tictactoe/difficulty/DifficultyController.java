@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import se.iths.tictactoe.game.GameController;
 import se.iths.tictactoe.game.GameMode;
@@ -20,8 +19,6 @@ public class DifficultyController {
     private ScrollBar difficulty;
 
 
-
-
     public void switchToGameView(ActionEvent event) throws IOException
     {
         int value = (int) difficulty.getValue();
@@ -31,9 +28,7 @@ public class DifficultyController {
         Scene scene = new Scene(parent);
         GameController gc = fxmlLoader.getController();
         gc.setDifficulty(value);
-        gc.setGameMode(GameMode.PLAYERVSCOMPUTER);
-
-
+        gc.prepareGame(GameMode.PLAYERVSCOMPUTER);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 

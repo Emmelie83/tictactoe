@@ -47,7 +47,7 @@ public class MinMax {
         if (player == Player.PLAYER1)
             boardValue = -10;
 
-        if (Math.abs(boardValue) == 10 || depth == 0 || gameModel.boardIsFull(board)) return boardValue;
+        if (Math.abs(boardValue) == 10 || depth == 0 || gameModel.isBordFull(board)) return boardValue;
 
 
         if (isMaxComputerMove) {

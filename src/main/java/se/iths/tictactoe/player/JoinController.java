@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class PlayerController {
+public class JoinController {
     public void switchToGameView2(ActionEvent event) throws IOException
     {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("game-view.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/game-view.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

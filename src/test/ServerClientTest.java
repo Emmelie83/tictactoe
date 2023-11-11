@@ -14,8 +14,9 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ServerClientTest {
-    HttpClient server = HttpClient.newHttpClient();
     HttpClient client = HttpClient.newHttpClient();
+    HttpClient server = HttpClient.newHttpClient();
+
 
     public int testThatServerCanSend(String gameState) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -25,7 +26,6 @@ public class ServerClientTest {
 
         HttpResponse<Void> response =
                 server.send(request, HttpResponse.BodyHandlers.discarding());
-
 
         return response.statusCode();
     }

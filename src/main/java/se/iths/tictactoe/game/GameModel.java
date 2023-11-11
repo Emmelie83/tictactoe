@@ -7,22 +7,21 @@ import java.util.Random;
 public class GameModel {
 
     private static final int BOARD_SIZE = 3;
-    private static final String SERVER_URL = "https://ntfy.sh/ej-tic-tac-toe";
     private int[][] board;
-    private int playerScore = 0;
-    private int computerScore = 0;
+    private int playerXScore = 0;
+    private int playerOScore = 0;
     private Player winner;
-    private Player currentPlayer = Player.PLAYER1;
 
+    private Player currentPlayer = Player.NONE;
     private GameMode gameMode = GameMode.NONE;
     private MinMax minMax = new MinMax(this);
-
 
 
     public GameModel() {
         this.board = new int[BOARD_SIZE][BOARD_SIZE];
         resetPlayer();
     }
+
 
     public int[][] getBoard() {
         return board;
@@ -32,31 +31,28 @@ public class GameModel {
         return currentPlayer;
     }
 
+
     public Player getWinner() {
         return winner;
     }
 
-    public int getPlayerScore() {
-        return playerScore;
+    public int getPlayerXScore() {
+        return playerXScore;
     }
 
-    public int getComputerScore() {
-        return computerScore;
+    public int getPlayerOScore() {
+        return playerOScore;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
     }
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
     }
 
-    //region player
-
-    public void resetPlayer() {
-        currentPlayer = Player.PLAYER1;
-    }
-    //endregion
-
-
-    //region computer
 
     public int[] computerMove(int difficulty) {
         int[] bestMove = minMax.findBestMove(board);
@@ -80,18 +76,21 @@ public class GameModel {
         } while (isFree == false);
         return new int[] {i ,j };
     }
-    //endregion
 
 
-    //region common
+    public void changePlayer() {
+            if (currentPlayer == Player.PLAYER1) currentPlayer = Player.COMPUTER;
+            else currentPlayer = Player.PLAYER1;
+    }
+
+    public void resetPlayer() {
+        currentPlayer = Player.PLAYER1;
+    }
+
     public boolean isBoardSet(int[][] board, int i, int j, Player player) {
         if (board[i][j] != Player.NONE.ordinal()) return false;
         this.board[i][j] = player.ordinal();
         return true;
-    }
-    public void changePlayer() {
-        if (currentPlayer == Player.PLAYER1) currentPlayer = Player.COMPUTER;
-        else currentPlayer = Player.PLAYER1;
     }
 
     public boolean isGameOver(int[][] board) {
@@ -101,14 +100,14 @@ public class GameModel {
             updateScore();
             return true;
         }
-        if (boardIsFull(board)) {
+        if (isBordFull(board)) {
             winner = Player.NONE;
             return true;
         }
         return false;
     }
 
-    public boolean boardIsFull(int[][] board) {
+    public boolean isBordFull(int[][] board) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (board[i][j] == Player.NONE.ordinal()) {
@@ -135,7 +134,6 @@ public class GameModel {
     }
 
      public Player mapOrdinalToPlayerEnum(int ordinal) {
-
         for (Player value : Player.values()) {
             if(value.ordinal() == ordinal) return value;
         }
@@ -143,8 +141,9 @@ public class GameModel {
     }
 
     private void updateScore() {
-        if (winner == Player.PLAYER1) playerScore++;
-        if (winner == Player.COMPUTER) computerScore++;
+        if (winner == Player.PLAYER1) playerXScore++;
+        if (winner == Player.PLAYER2) playerOScore++;
+        if (winner == Player.COMPUTER) playerOScore++;
     }
     //endregion
 
@@ -155,5 +154,4 @@ public class GameModel {
             }
         }
     }
-
 }

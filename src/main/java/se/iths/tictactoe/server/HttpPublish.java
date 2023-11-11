@@ -7,11 +7,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class HttpPublish {
-
+    static HttpClient client = HttpClient.newHttpClient();
 
     public static int sendGameState(String gameState) throws IOException, InterruptedException {
         //Reuse same client object during our programs lifetime
-        HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe")) //Change java23iths to another topic name
@@ -21,8 +20,7 @@ public class HttpPublish {
         HttpResponse<Void> response =
                 client.send(request, HttpResponse.BodyHandlers.discarding());
 
-        System.out.println(response.statusCode());
+        //System.out.println(response.statusCode());
         return response.statusCode();
     }
-
 }

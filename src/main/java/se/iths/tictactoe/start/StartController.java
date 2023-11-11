@@ -10,13 +10,8 @@ import se.iths.tictactoe.game.GameController;
 import se.iths.tictactoe.game.GameMode;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class StartController {
-
-
-
-
 
     public void switchToPlayerView(ActionEvent event) throws IOException
     {
@@ -25,7 +20,7 @@ public class StartController {
         Parent parent = fxmlLoader.load();
         Scene scene = new Scene(parent);
         GameController gc = fxmlLoader.getController();
-        gc.setGameMode(GameMode.PLAYERVSPLAYER);
+        gc.prepareGame(GameMode.PLAYERVSPLAYER);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 

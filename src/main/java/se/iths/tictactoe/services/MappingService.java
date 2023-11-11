@@ -49,7 +49,6 @@ public class MappingService {
             int col = i % 3;
             board[row][col] = Character.getNumericValue(chars[i]);
         }
-
         return board;
     }
 }

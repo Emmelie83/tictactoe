@@ -1,5 +1,8 @@
 package se.iths.tictactoe.server;
 
+import javafx.application.Platform;
+import se.iths.tictactoe.game.GameController;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -9,9 +12,9 @@ import java.net.http.HttpResponse;
 
 public class HttpConsume {
 
-    public static void main(String[] args) {
+    static HttpClient client = HttpClient.newHttpClient();
 
-        HttpClient client = HttpClient.newHttpClient();
+    public static void startClient(GameController gameController) {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe/raw")) // raw = one line per message
@@ -22,18 +25,20 @@ public class HttpConsume {
                 .thenAccept(inputStream -> {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                     reader.lines().forEach(line -> {
+                        Platform.runLater(() -> {
+                            // Update your model with the received message
+                            updateModel(line);
+
+                            System.out.println(line);
+                        });
                         // process each line here
                         //Replace with updating model with incoming text message. Do this in Platform.runLater()
                         //Check for valid input. Strings may be empty.
-                        System.out.println(Thread.currentThread().getName());
-                        System.out.println(line);
                     });
                 });
-        //Not necessary in JavaFx Application
-        try {
-            Thread.sleep(10000000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    }
+
+    private static void updateModel(String message) {
+        System.out.println(message);
     }
 }
