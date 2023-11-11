@@ -1,6 +1,7 @@
 package se.iths.tictactoe.services;
 
 import javafx.scene.paint.Color;
+import se.iths.tictactoe.enums.Command;
 import se.iths.tictactoe.enums.Player;
 
 public class MappingService {
@@ -75,6 +76,13 @@ public class MappingService {
     public Player mapOrdinalToPlayerEnum(int ordinal) {
         for (Player value : Player.values()) {
             if(value.ordinal() == ordinal) return value;
+        }
+        return null;
+    }
+
+    public Command mapStringToCommand(String message) {
+        for (Command value : Command.values()) {
+            if(value.toString() == message) return value;
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package se.iths.tictactoe.server;
 
 import javafx.application.Platform;
+import se.iths.tictactoe.enums.Command;
 import se.iths.tictactoe.game.GameController;
 import se.iths.tictactoe.game.GameModel;
 import se.iths.tictactoe.services.MappingService;
@@ -38,7 +39,7 @@ public class HttpConsume {
                                 //Platform.runLater(() -> {
                                 gameModel.gameModePlayerVsPlayerSetPlayer2();
                                 // Update your model with the received message
-                                updateModel(lines[0], gameController, gameModel);
+                                updateModel(lines[0], lines[1], gameController, gameModel);
 
                                 System.out.println(line);
                                 //});
@@ -51,12 +52,21 @@ public class HttpConsume {
                 });
     }
 
-    private static void updateModel(String board, GameController gameController, GameModel gameModel) {
+    private static void updateModel(String board, String command, GameController gameController, GameModel gameModel) {
         int[][] newBoard = mappingService.stringToBoard(board);
         gameModel.setNewBoard(newBoard);
         gameController.setButtonsByBoard(gameModel.getBoard());
         gameController.disableFlowPane(false);
-
+        executeCommand(command, gameController);
         System.out.println(board);
+    }
+
+    private static void executeCommand(String command, GameController gameController) {
+        Command eCommand = mappingService.mapStringToCommand(command);
+        switch (eCommand) {
+            case PLAYAGAIN -> {
+                gameController.onPlayAgainReset();
+            }
+        }
     }
 }
