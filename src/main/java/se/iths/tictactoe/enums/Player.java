@@ -1,4 +1,4 @@
-package se.iths.tictactoe.game;
+package se.iths.tictactoe.enums;
 
 public enum Player {
     NONE,

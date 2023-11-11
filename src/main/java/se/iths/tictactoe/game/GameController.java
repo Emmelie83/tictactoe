@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import se.iths.tictactoe.enums.GameMode;
 import se.iths.tictactoe.enums.Player;
-import se.iths.tictactoe.server.Command;
+import se.iths.tictactoe.enums.Command;
 import se.iths.tictactoe.server.HttpConsume;
 import se.iths.tictactoe.server.HttpPublish;
 import se.iths.tictactoe.services.MappingService;

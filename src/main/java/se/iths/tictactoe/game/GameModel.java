@@ -165,7 +165,6 @@ public class GameModel {
         if (winner == Player.PLAYER2) playerOScore++;
         if (winner == Player.COMPUTER) playerOScore++;
     }
-    //endregion
 
     public void resetBoard() {
         for (int i = 0; i < BOARD_SIZE; i++) {
