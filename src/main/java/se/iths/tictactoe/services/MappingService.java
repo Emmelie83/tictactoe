@@ -9,8 +9,8 @@ import java.util.Objects;
 public class MappingService {
 
 
-    private Color[] playerToColor = new Color[Player.COMPUTER.ordinal()+1];
-    private String[] playerToValue = new String[Player.COMPUTER.ordinal()+1];
+    private static final Color[] playerToColor = new Color[Player.COMPUTER.ordinal() + 1];
+    private static final String[] playerToValue = new String[Player.COMPUTER.ordinal() + 1];
 
     public MappingService() {
         initPlayerToValue();

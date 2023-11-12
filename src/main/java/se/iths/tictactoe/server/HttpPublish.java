@@ -15,8 +15,8 @@ public class HttpPublish {
         //Reuse same client object during our programs lifetime
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(HttpPublish.url)) //Change java23iths to another topic name
-                .POST(HttpRequest.BodyPublishers.ofString(board + "," + command)) //Replace with your text
+                .uri(URI.create(HttpPublish.url))
+                .POST(HttpRequest.BodyPublishers.ofString(board + "," + command))
                 .build();
 
         HttpResponse<Void> response =

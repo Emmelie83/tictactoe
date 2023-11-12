@@ -41,11 +41,11 @@ public class MinMax {
         Player player = gameModel.evaluateBoard(board);
 
         int boardValue = 0;
-        if (player == Player.COMPUTER)
+        if (player == Player.COMPUTER) {
             boardValue = 10;
-
-        if (player == Player.PLAYER1)
-            boardValue = -10;
+            if (player == Player.PLAYER1)
+                boardValue = -10;
+        } else if (player == Player.PLAYER1) boardValue = -10;
 
         if (Math.abs(boardValue) == 10 || depth == 0 || gameModel.isBordFull(board)) return boardValue;
 

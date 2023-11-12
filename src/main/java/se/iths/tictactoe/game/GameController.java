@@ -126,7 +126,6 @@ public class GameController implements Initializable {
         String stringBoard = mappingService.boardToString(board);
         gameModel.currentBoardString = stringBoard;
         HttpPublish.sendGameState(stringBoard, Command.NONE.toString());
-        //flowPane.setDisable(true);
         disableFlowPane(true);
     }
 
@@ -236,8 +235,7 @@ public class GameController implements Initializable {
 
     private void resetButtons() {
         for (Button[] value : buttons) {
-            for (int j = 0; j < value.length; j++) {
-                Button button = value[j];
+            for (Button button : value) {
                 resetButton(button);
             }
         }
