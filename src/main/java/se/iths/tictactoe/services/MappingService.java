@@ -52,11 +52,10 @@ public class MappingService {
 
     public String boardToString(int[][] board) {
         String result = "";
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                result += board[i][j];
+        for (int[] ints : board) {
+            for (int anInt : ints) {
+                result += anInt;
             }
-
         }
         return result;
     }

@@ -12,7 +12,6 @@ public class HttpPublish {
     private static final String url = "https://ntfy.sh/ej-tic-tac-toe";
 
     public static int sendGameState(String board, String command) throws IOException, InterruptedException {
-        //Reuse same client object during our programs lifetime
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(HttpPublish.url))
