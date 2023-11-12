@@ -86,14 +86,14 @@ public class GameModel {
 
     public int[] randomMove() {
         Random random = new Random();
-        int i = 0;
-        int j = 0;
-        boolean isFree = true;
+        int i;
+        int j;
+        boolean isFree;
         do {
             i = random.nextInt(3);
             j = random.nextInt(3);
             isFree = isBoardSet(board, i, j, Player.COMPUTER);
-        } while (isFree == false);
+        } while (!isFree);
         return new int[] {i ,j };
     }
 

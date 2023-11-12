@@ -182,8 +182,7 @@ public class GameController implements Initializable {
 
     private void disableAllButtons() {
         for (Button[] value : buttons) {
-            for (int j = 0; j < value.length; j++) {
-                Button button = value[j];
+            for (Button button : value) {
                 button.setDisable(true);
             }
         }
@@ -236,9 +235,9 @@ public class GameController implements Initializable {
 
 
     private void resetButtons() {
-        for (int i = 0; i < buttons.length; i++) {
-            for (int j = 0; j < buttons[i].length; j++) {
-                Button button = buttons[i][j];
+        for (Button[] value : buttons) {
+            for (int j = 0; j < value.length; j++) {
+                Button button = value[j];
                 resetButton(button);
             }
         }
