@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
     @FXML
     public Button playAgainButton;
-    private String tag = "GameController";
+    private static final String tag = "GameController";
 
     @FXML
     private Label scoreText;
@@ -65,7 +65,7 @@ public class GameController implements Initializable {
     private final GameModel gameModel = new GameModel();
     private final MappingService mappingService = new MappingService();
     private int difficulty;
-    public String getCurrentBoardString() { return gameModel.currentBoardString; };
+    public String getCurrentBoardString() { return gameModel.currentBoardString; }
 
 
     @Override
@@ -151,7 +151,7 @@ public class GameController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            System.out.println(tag + " setButtons() " + e.toString());
+            System.out.println(tag + " setButtons() " + e);
         }
     }
         private void setButtonByBoard(int i, int j, Player player) {
@@ -181,9 +181,9 @@ public class GameController implements Initializable {
     }
 
     private void disableAllButtons() {
-        for (int i = 0; i < buttons.length; i++) {
-            for (int j = 0; j < buttons[i].length; j++) {
-                Button button = buttons[i][j];
+        for (Button[] value : buttons) {
+            for (int j = 0; j < value.length; j++) {
+                Button button = value[j];
                 button.setDisable(true);
             }
         }
@@ -215,7 +215,7 @@ public class GameController implements Initializable {
     @FXML
     void playAgain(ActionEvent event) throws IOException, InterruptedException {
         gameModel.resetBoard();
-        resetButtons(gameModel.getBoard());
+        resetButtons();
         onPlayAgainReset();
         gameModel.resetPlayer();
         showPlayAgainButton(false);
@@ -235,7 +235,7 @@ public class GameController implements Initializable {
     }
 
 
-    private void resetButtons(int[][] board) {
+    private void resetButtons() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 Button button = buttons[i][j];

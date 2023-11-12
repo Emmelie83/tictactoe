@@ -16,9 +16,9 @@ import java.util.Objects;
 
 public class HttpConsume {
 
-    static private String tag = "HttpConsume";
+    private static final String tag = "HttpConsume";
 
-    static private String url = "https://ntfy.sh/ej-tic-tac-toe/raw";
+    private static final String url = "https://ntfy.sh/ej-tic-tac-toe/raw";
     private static final HttpClient client = HttpClient.newHttpClient();
     static MappingService mappingService = new MappingService();
 
@@ -32,32 +32,29 @@ public class HttpConsume {
                 .thenApply(HttpResponse::body)
                 .thenAccept(inputStream -> {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                    reader.lines().forEach(line -> {
+                    reader.lines().forEach(line -> Platform.runLater(() -> {
+                        try {
+                            System.out.println("line:" + line);
+                            //set Player2 as current player
+                            if(line == null || Objects.equals(line, "") ) return;
+                            //get string contents
+                            String[] lines = line.split(",");
+                            String board = lines[0];
+                            String command = lines[1];
 
-                        Platform.runLater(() -> {
-                            try {
-                                System.out.println("line:" + line);
-                                //set Player2 as current player
-                                if(line == null || Objects.equals(line, "") ) return;
-                                //get string contents
-                                String[] lines = line.split(",");
-                                String board = lines[0];
-                                String command = lines[1];
+                            boolean isYourTurn = isYourTurn(board, gameController);
+                            // Update your model with the received message
+                            updateBoard(isYourTurn, board, gameController, gameModel);
+                            executeCommand(isYourTurn, command, gameController);
 
-                                boolean isYourTurn = isYourTurn(board, gameController);
-                                // Update your model with the received message
-                                updateBoard(isYourTurn, board, gameController, gameModel);
-                                executeCommand(isYourTurn, command, gameController);
-
-                               if (gameController.isGameOver()) {
-                                    String wer = "sd";
-                                }
-                            }catch (Exception e) {
-                                System.out.println(HttpConsume.tag + " " + e.toString());
+                           if (gameController.isGameOver()) {
+                                String wer = "sd";
                             }
+                        }catch (Exception e) {
+                            System.out.println(HttpConsume.tag + " " + e);
+                        }
 
-                        });
-                    });
+                    }));
                 });
     }
 
@@ -96,7 +93,6 @@ public class HttpConsume {
 
 
     private static boolean isYourTurn(String board, GameController gameController) {
-        if(Objects.equals(board, gameController.getCurrentBoardString())) return false;
-        return true;
+        return !Objects.equals(board, gameController.getCurrentBoardString());
     }
 }
