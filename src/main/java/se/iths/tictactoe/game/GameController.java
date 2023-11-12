@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import se.iths.tictactoe.enums.GameMode;
@@ -60,15 +59,12 @@ public class GameController implements Initializable {
 
     @FXML
     private FlowPane flowPane;
-
     @FXML
     public Button closeButton;
-
     private Button[][] buttons;
-    private GameModel gameModel = new GameModel();
-    private MappingService mappingService = new MappingService();
+    private final GameModel gameModel = new GameModel();
+    private final MappingService mappingService = new MappingService();
     private int difficulty;
-
     public String getCurrentBoardString() { return gameModel.currentBoardString; };
 
 
@@ -95,28 +91,22 @@ public class GameController implements Initializable {
     public void prepareGame(GameMode gameMode) {
         gameModel.setGameMode(gameMode);
         initializeButtons();
-        if (gameMode == GameMode.PLAYERVSPLAYER) {
-            HttpConsume.startClient(this, this.gameModel);
-        }
+        if (gameMode == GameMode.PLAYERVSPLAYER) HttpConsume.startClient(this, this.gameModel);
     }
 
 
     private void setOnClick(Button button, int i, int j, GameMode gameMode) {
-        if (gameMode == GameMode.PLAYERVSCOMPUTER) {
-            button.setOnMouseClicked(mouseEvent -> {
-                if (vsComputerPlayersTurn(i, j)) return;
-                vsComputerComputersTurn();
-            });
-        }
-        if (gameMode == GameMode.PLAYERVSPLAYER) {
-            button.setOnMouseClicked(mouseEvent -> {
-                try {
-                    vsPlayerPlayersTurn(i, j);
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) button.setOnMouseClicked(mouseEvent -> {
+            if (vsComputerPlayersTurn(i, j)) return;
+            vsComputerComputersTurn();
+        });
+        if (gameMode == GameMode.PLAYERVSPLAYER) button.setOnMouseClicked(mouseEvent -> {
+            try {
+                vsPlayerPlayersTurn(i, j);
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 
@@ -129,7 +119,7 @@ public class GameController implements Initializable {
     }
 
     private void vsPlayerPlayersTurn(int i, int j) throws IOException, InterruptedException {
-        gameModel.gameModePlayerVsPlayerSetPlayer1();
+        gameModel.vsPlayerSetPlayer1();
         int[][] board = gameModel.getBoard();
         gameModel.isBoardSet(board, i, j, gameModel.getCurrentPlayer());
         setButton(i, j, gameModel.getCurrentPlayer());
@@ -180,16 +170,6 @@ public class GameController implements Initializable {
         buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
         buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(currentPlayer));
         buttons[i][j].setDisable(true);
-
-        //Player currentPlayer = gameModel.getCurrentPlayer();
-//        if (currentPlayer == Player.COMPUTER || currentPlayer == Player.PLAYER2) {
-//            buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
-//            buttons[i][j].setTextFill(Color.GREEN);
-//        } else {
-//            buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
-//            buttons[i][j].setTextFill(Color.RED);
-//        }
-//        buttons[i][j].setDisable(true);
     }
 
 
@@ -239,7 +219,6 @@ public class GameController implements Initializable {
         onPlayAgainReset();
         gameModel.resetPlayer();
         showPlayAgainButton(false);
-
         if(gameModel.getGameMode() == GameMode.PLAYERVSCOMPUTER) return;
         gameModel.resetCurrentBoardString();
         gameModel.currentBoardString = mappingService.boardToString(gameModel.getBoard());

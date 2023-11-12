@@ -25,7 +25,7 @@ public class HttpConsume {
     public static void startClient(GameController gameController, GameModel gameModel) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(HttpConsume.url)) // raw = one line per message
+                .uri(URI.create(HttpConsume.url))
                 .build();
 
         client.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
@@ -65,7 +65,7 @@ public class HttpConsume {
         //return if board is the same (means: others player turn)
         if(!isYourTurn) return;
 
-        gameModel.gameModePlayerVsPlayerSetPlayer2();
+        gameModel.vsPlayerSetPlayer2();
 
         //get new board
         int[][] newBoard = mappingService.stringToBoard(board);
