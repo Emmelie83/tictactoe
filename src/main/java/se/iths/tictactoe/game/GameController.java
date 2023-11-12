@@ -112,9 +112,7 @@ public class GameController implements Initializable {
             button.setOnMouseClicked(mouseEvent -> {
                 try {
                     vsPlayerPlayersTurn(i, j);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
+                } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             });
@@ -175,38 +173,34 @@ public class GameController implements Initializable {
 
             buttons[i][j].setText(mappingService.getValueFromPlayerEnum(player));
             buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(player));
-            //buttons[i][j].setTextFill(Color.RED);
             buttons[i][j].setDisable(true);
-
-//            if (currentPlayer == Player.NONE)
-//            //Player currentPlayer = gameModel.getCurrentPlayer();
-//            if (currentPlayer == Player.COMPUTER || currentPlayer == Player.PLAYER2) {
-//                buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
-//                buttons[i][j].setTextFill(Color.GREEN);
-//            } else {
-//                buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
-//                buttons[i][j].setTextFill(Color.RED);
-//            }
-
         }
 
     private void setButton(int i, int j, Player currentPlayer) {
-        //Player currentPlayer = gameModel.getCurrentPlayer();
-        if (currentPlayer == Player.COMPUTER || currentPlayer == Player.PLAYER2) {
-            buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
-            buttons[i][j].setTextFill(Color.GREEN);
-        } else {
-            buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
-            buttons[i][j].setTextFill(Color.RED);
-        }
+        buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
+        buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(currentPlayer));
         buttons[i][j].setDisable(true);
+
+        //Player currentPlayer = gameModel.getCurrentPlayer();
+//        if (currentPlayer == Player.COMPUTER || currentPlayer == Player.PLAYER2) {
+//            buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
+//            buttons[i][j].setTextFill(Color.GREEN);
+//        } else {
+//            buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
+//            buttons[i][j].setTextFill(Color.RED);
+//        }
+//        buttons[i][j].setDisable(true);
     }
 
 
     public void onGameOver() {
-        if (gameModel.getCurrentPlayer() == Player.PLAYER1) {
+        if (gameModel.getCurrentPlayer() == Player.PLAYER1 || gameModel.getCurrentPlayer() == Player.COMPUTER) {
             showPlayAgainButton(true);
         }
+        disableAllButtons();
+    }
+
+    private void disableAllButtons() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 Button button = buttons[i][j];
@@ -227,9 +221,10 @@ public class GameController implements Initializable {
 
     public void setWinner() {
         Player winner = gameModel.getWinner();
-        if (winner == Player.PLAYER1) winnerText.setText("X won!");
-        if (winner == Player.COMPUTER) winnerText.setText("O won!");
-        if (winner == Player.PLAYER2) winnerText.setText("O won!");
+
+        if (winner == Player.PLAYER1) winnerText.setText(mappingService.getValueFromPlayerEnum(Player.PLAYER1) + " won!");
+        if (winner == Player.COMPUTER) winnerText.setText(mappingService.getValueFromPlayerEnum(Player.COMPUTER) + " won!");
+        if (winner == Player.PLAYER2) winnerText.setText(mappingService.getValueFromPlayerEnum(Player.PLAYER2) + " won!");
         if (winner == Player.NONE) winnerText.setText("Draw!");
     }
 
@@ -244,6 +239,8 @@ public class GameController implements Initializable {
         onPlayAgainReset();
         gameModel.resetPlayer();
         showPlayAgainButton(false);
+
+        if(gameModel.getGameMode() == GameMode.PLAYERVSCOMPUTER) return;
         gameModel.resetCurrentBoardString();
         gameModel.currentBoardString = mappingService.boardToString(gameModel.getBoard());
         HttpPublish.sendGameState(gameModel.currentBoardString, Command.PLAYAGAIN.toString());
@@ -279,7 +276,12 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    public void handleCloseButtonAction(ActionEvent event) {
+    public void handleCloseButtonAction(ActionEvent event) throws IOException, InterruptedException {
+        HttpPublish.sendGameState("",Command.EXITGAME.toString());
+        exitGame();
+    }
+
+    public void exitGame() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

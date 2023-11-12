@@ -4,7 +4,11 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
- public class Server {
+public class Server {
+
+    private static String tag = "Server";
+    private static String serverData = "serverData";
+
     public static void main(String[] args) {
 
         try (ServerSocket serverSocket = new ServerSocket(6000)) {
@@ -22,14 +26,16 @@ import java.net.Socket;
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            String text = bufferedReader.readLine();
-            System.out.println(text);
+            String fromClient = bufferedReader.readLine();
+            System.out.println(tag + "handleConnection() "+ fromClient);
+            Server.serverData = fromClient;
+
 
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             bufferedWriter.write("Hello from server!\n");
             bufferedWriter.flush();
         } catch (IOException e) {
-
+            System.out.println(e);
         }
     }
 }

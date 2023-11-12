@@ -16,13 +16,16 @@ import java.util.Objects;
 
 public class HttpConsume {
 
-    static HttpClient client = HttpClient.newHttpClient();
+    static private String tag = "HttpConsume";
+
+    static private String url = "https://ntfy.sh/ej-tic-tac-toe/raw";
+    private static final HttpClient client = HttpClient.newHttpClient();
     static MappingService mappingService = new MappingService();
 
     public static void startClient(GameController gameController, GameModel gameModel) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe/raw")) // raw = one line per message
+                .uri(URI.create(HttpConsume.url)) // raw = one line per message
                 .build();
 
         client.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
@@ -32,41 +35,68 @@ public class HttpConsume {
                     reader.lines().forEach(line -> {
 
                         Platform.runLater(() -> {
-                            String[] lines = line.split(",");
-                            //ToDo: Check if Gameover
-                            if (!Objects.equals(lines[0], gameController.getCurrentBoardString())) {
+                            try {
+                                System.out.println("line:" + line);
+                                //set Player2 as current player
+                                if(line == null || Objects.equals(line, "") ) return;
+                                //get string contents
+                                String[] lines = line.split(",");
+                                String board = lines[0];
+                                String command = lines[1];
 
-                                //Platform.runLater(() -> {
-                                gameModel.gameModePlayerVsPlayerSetPlayer2();
+                                boolean isYourTurn = isYourTurn(board, gameController);
                                 // Update your model with the received message
-                                updateModel(lines[0], lines[1], gameController, gameModel);
+                                updateBoard(isYourTurn, board, gameController, gameModel);
+                                executeCommand(isYourTurn, command, gameController);
 
-                                System.out.println(line);
-                                //});
+                               if (gameController.isGameOver()) {
+                                    String wer = "sd";
+                                }
+                            }catch (Exception e) {
+                                System.out.println(HttpConsume.tag + " " + e.toString());
                             }
-                            if (gameController.isGameOver()) {
-                                return;
-                            }
+
                         });
                     });
                 });
     }
 
-    private static void updateModel(String board, String command, GameController gameController, GameModel gameModel) {
+    private static void updateBoard(boolean isYourTurn,  String board, GameController gameController, GameModel gameModel) {
+        //return if board is the same (means: others player turn)
+        if(!isYourTurn) return;
+
+        gameModel.gameModePlayerVsPlayerSetPlayer2();
+
+        //get new board
         int[][] newBoard = mappingService.stringToBoard(board);
         gameModel.setNewBoard(newBoard);
+
+        //update GUI by new board-array
         gameController.setButtonsByBoard(gameModel.getBoard());
+
+        //active GUI so that player can play
         gameController.disableFlowPane(false);
-        executeCommand(command, gameController);
         System.out.println(board);
     }
 
-    private static void executeCommand(String command, GameController gameController) {
-        Command eCommand = mappingService.mapStringToCommand(command);
-        switch (eCommand) {
-            case PLAYAGAIN -> {
-                gameController.onPlayAgainReset();
+    private static void executeCommand(boolean isYourTurn, String command, GameController gameController) {
+        if(!isYourTurn) return;
+        try {
+            Command eCommand = mappingService.mapStringToCommand(command);
+            if(eCommand == null) throw new Exception(HttpConsume.tag + "Exception executeCommand() command: "+command+ " e: eCommand == null");
+            switch (eCommand) {
+                case PLAYAGAIN -> gameController.onPlayAgainReset();
+                case EXITGAME -> gameController.exitGame();
             }
+        } catch (Exception e) {
+            System.out.println(HttpConsume.tag + "executeCommand() " +e);
         }
+
+    }
+
+
+    private static boolean isYourTurn(String board, GameController gameController) {
+        if(Objects.equals(board, gameController.getCurrentBoardString())) return false;
+        return true;
     }
 }

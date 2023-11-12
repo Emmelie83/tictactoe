@@ -7,20 +7,22 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class HttpPublish {
-    static HttpClient client = HttpClient.newHttpClient();
+    private static final HttpClient client = HttpClient.newHttpClient();
+
+    private static final String url = "https://ntfy.sh/ej-tic-tac-toe";
 
     public static int sendGameState(String board, String command) throws IOException, InterruptedException {
         //Reuse same client object during our programs lifetime
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ntfy.sh/ej-tic-tac-toe")) //Change java23iths to another topic name
+                .uri(URI.create(HttpPublish.url)) //Change java23iths to another topic name
                 .POST(HttpRequest.BodyPublishers.ofString(board + "," + command)) //Replace with your text
                 .build();
 
         HttpResponse<Void> response =
                 client.send(request, HttpResponse.BodyHandlers.discarding());
 
-        //System.out.println(response.statusCode());
+        System.out.println(response.statusCode());
         return response.statusCode();
     }
 }

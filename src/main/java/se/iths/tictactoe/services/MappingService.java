@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 import se.iths.tictactoe.enums.Command;
 import se.iths.tictactoe.enums.Player;
 
+import java.util.Objects;
+
 public class MappingService {
 
 
@@ -80,9 +82,9 @@ public class MappingService {
         return null;
     }
 
-    public Command mapStringToCommand(String message) {
+    public Command mapStringToCommand(String stringCommand) {
         for (Command value : Command.values()) {
-            if(value.toString() == message) return value;
+            if(Objects.equals(value.toString(), stringCommand)) return value;
         }
         return null;
     }
