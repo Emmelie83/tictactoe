@@ -67,9 +67,7 @@ public class GameModel {
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
-        if (gameMode == GameMode.PLAYERVSCOMPUTER) {
-            currentPlayer = Player.PLAYER1;
-        }
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
     }
 
     public void resetCurrentBoardString() {
