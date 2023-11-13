@@ -15,15 +15,18 @@ public class GameModel {
     private int playerXScore = 0;
     private int playerOScore = 0;
     private Player winner;
+
     private Player currentPlayer = Player.NONE;
     private GameMode gameMode = GameMode.NONE;
-    private final MinMax minMax = new MinMax(this);
-    private final MappingService mappingService = new MappingService();
+    private MinMax minMax = new MinMax(this);
+    private MappingService mappingService = new MappingService();
+
 
     public GameModel() {
         this.board = new int[BOARD_SIZE][BOARD_SIZE];
         resetPlayer();
     }
+
 
     public int[][] getBoard() {
         return board;
@@ -33,17 +36,20 @@ public class GameModel {
         this.board = board;
     }
 
+    public void resetCurrentBoardString() {
+        currentBoardString = "";
+    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-    void vsPlayerSetPlayer1() {
+    void gameModePlayerVsPlayerSetPlayer1() {
         if(currentPlayer == Player.NONE) {
             currentPlayer = Player.PLAYER1;
         }
     }
 
-    public void vsPlayerSetPlayer2() {
+    public void gameModePlayerVsPlayerSetPlayer2() {
         if(currentPlayer == Player.NONE) {
             currentPlayer = Player.PLAYER2;
         }
@@ -67,31 +73,32 @@ public class GameModel {
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
-        if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) {
+            currentPlayer = Player.PLAYER1;
+        }
     }
 
-    public void resetCurrentBoardString() {
-        currentBoardString = "";
-    }
 
     public int[] computerMove(int difficulty) {
         int[] bestMove = minMax.findBestMove(board);
         Random random = new Random();
         int randomNumber = random.nextInt(100);
-        if (randomNumber <= difficulty) return bestMove;
+        if (randomNumber <= difficulty) {
+            return bestMove;
+        }
         return randomMove();
     }
 
     public int[] randomMove() {
         Random random = new Random();
-        int i;
-        int j;
-        boolean isFree;
+        int i = 0;
+        int j = 0;
+        boolean isFree = true;
         do {
             i = random.nextInt(3);
             j = random.nextInt(3);
             isFree = isBoardSet(board, i, j, Player.COMPUTER);
-        } while (!isFree);
+        } while (isFree == false);
         return new int[] {i ,j };
     }
 
@@ -103,6 +110,7 @@ public class GameModel {
 
     public void resetPlayer() {
         if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
+        //else currentPlayer = Player.NONE;
     }
 
     public boolean isBoardSet(int[][] board, int i, int j, Player player) {
@@ -128,7 +136,9 @@ public class GameModel {
     public boolean isBordFull(int[][] board) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                if (board[i][j] == Player.NONE.ordinal()) return false;
+                if (board[i][j] == Player.NONE.ordinal()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -148,6 +158,7 @@ public class GameModel {
 
         return Player.NONE;
     }
+
 
     private void updateScore() {
         if (winner == Player.PLAYER1) playerXScore++;

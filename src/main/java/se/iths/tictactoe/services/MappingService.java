@@ -9,8 +9,8 @@ import java.util.Objects;
 public class MappingService {
 
 
-    private static final Color[] playerToColor = new Color[Player.COMPUTER.ordinal() + 1];
-    private static final String[] playerToValue = new String[Player.COMPUTER.ordinal() + 1];
+    private Color[] playerToColor = new Color[Player.COMPUTER.ordinal()+1];
+    private String[] playerToValue = new String[Player.COMPUTER.ordinal()+1];
 
     public MappingService() {
         initPlayerToValue();
@@ -52,10 +52,11 @@ public class MappingService {
 
     public String boardToString(int[][] board) {
         String result = "";
-        for (int[] ints : board) {
-            for (int anInt : ints) {
-                result += anInt;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                result += board[i][j];
             }
+
         }
         return result;
     }
