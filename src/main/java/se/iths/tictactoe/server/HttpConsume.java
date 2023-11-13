@@ -16,10 +16,7 @@ import java.util.Objects;
 
 public class HttpConsume {
 
-    static private String tag = "HttpConsume";
-
-    //static private String url = "http://127.0.0.1:3000";
-    //static private String url = "https://ntfy.sh/ttt/raw";
+    private static final String tag = "HttpConsume";
     static private final String url = "https://ntfy.sh/ej-tic-tac-toe/raw";
     static HttpClient client = HttpClient.newHttpClient();
     static MappingService mappingService = new MappingService();
@@ -39,21 +36,15 @@ public class HttpConsume {
                         Platform.runLater(() -> {
                             try {
                                 System.out.println("line:" + line);
-                                //set Player2 as current player
                                 if(line == null || Objects.equals(line, "") ) return;
-                                //get string contents
                                 String[] lines = line.split(",");
                                 String board = lines[0];
                                 String command = lines[1];
 
                                 boolean isYourTurn = isYourTurn(board, gameController);
-                                // Update your model with the received message
                                 updateBoard(isYourTurn, board, gameController, gameModel);
                                 executeCommand(isYourTurn, command, gameController);
-
-                               if (gameController.isGameOver()) {
-                                    String wer = "sd";
-                                }
+                                gameController.isGameOver();
                             }catch (Exception e) {
                                 System.out.println(HttpConsume.tag + " " + e.toString());
                             }
@@ -64,19 +55,15 @@ public class HttpConsume {
     }
 
     private static void updateBoard(boolean isYourTurn,  String board, GameController gameController, GameModel gameModel) {
-        //return if board is the same (means: others player turn)
         if(!isYourTurn) return;
 
         gameModel.gameModePlayerVsPlayerSetPlayer2();
 
-        //get new board
         int[][] newBoard = mappingService.stringToBoard(board);
         gameModel.setNewBoard(newBoard);
 
-        //update GUI by new board-array
         gameController.setButtonsByBoard(gameModel.getBoard());
 
-        //active GUI so that player can play
         gameController.disableFlowPane(false);
         System.out.println(board);
     }
@@ -93,9 +80,7 @@ public class HttpConsume {
         } catch (Exception e) {
             System.out.println(HttpConsume.tag + "executeCommand() " +e);
         }
-
     }
-
 
     private static boolean isYourTurn(String board, GameController gameController) {
         if(Objects.equals(board, gameController.getCurrentBoardString())) return false;

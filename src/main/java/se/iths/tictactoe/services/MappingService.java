@@ -8,9 +8,8 @@ import java.util.Objects;
 
 public class MappingService {
 
-
-    private Color[] playerToColor = new Color[Player.COMPUTER.ordinal()+1];
-    private String[] playerToValue = new String[Player.COMPUTER.ordinal()+1];
+    private static final Color[] playerToColor = new Color[Player.COMPUTER.ordinal() + 1];
+    private static final String[] playerToValue = new String[Player.COMPUTER.ordinal() + 1];
 
     public MappingService() {
         initPlayerToValue();
@@ -56,7 +55,6 @@ public class MappingService {
             for (int j = 0; j < board[i].length; j++) {
                 result += board[i][j];
             }
-
         }
         return result;
     }

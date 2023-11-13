@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
     @FXML
     public Button playAgainButton;
-    private String tag = "GameController";
+    private static final String tag = "GameController";
 
     @FXML
     private Label scoreText;
@@ -64,11 +64,11 @@ public class GameController implements Initializable {
     public Button closeButton;
 
     private Button[][] buttons;
-    private GameModel gameModel = new GameModel();
-    private MappingService mappingService = new MappingService();
+    private static final GameModel gameModel = new GameModel();
+    private static final MappingService mappingService = new MappingService();
     private int difficulty;
 
-    public String getCurrentBoardString() { return gameModel.currentBoardString; };
+    public String getCurrentBoardString() { return gameModel.currentBoardString; }
 
 
     @Override
@@ -96,10 +96,6 @@ public class GameController implements Initializable {
         initializeButtons();
         if (gameMode == GameMode.PLAYERVSPLAYER) {
             HttpConsume.startClient(this, this.gameModel);
-//            gameModel.gameModePlayerVsPlayerSetPlayer1();
-//            if(gameModel.getCurrentPlayer() == Player.PLAYER1) {
-//              disableFlowPane(true);
-//            }
         }
 
     }
@@ -165,20 +161,20 @@ public class GameController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            System.out.println(tag + " setButtons() " + e.toString());
+            System.out.println(tag + " setButtons() " + e);
         }
     }
-        private void setButtonByBoard(int i, int j, Player player) {
-            if (player ==  Player.NONE) {
-                buttons[i][j].setText(mappingService.getValueFromPlayerEnum(player));
-                buttons[i][j].setDisable(false);
-                return;
-            }
-
+    private void setButtonByBoard(int i, int j, Player player) {
+        if (player ==  Player.NONE) {
             buttons[i][j].setText(mappingService.getValueFromPlayerEnum(player));
-            buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(player));
-            buttons[i][j].setDisable(true);
+            buttons[i][j].setDisable(false);
+            return;
         }
+
+        buttons[i][j].setText(mappingService.getValueFromPlayerEnum(player));
+        buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(player));
+        buttons[i][j].setDisable(true);
+    }
 
     private void setButton(int i, int j, Player currentPlayer) {
         buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
@@ -242,7 +238,7 @@ public class GameController implements Initializable {
     @FXML
     void playAgain(ActionEvent event) throws IOException, InterruptedException {
         gameModel.resetBoard();
-        resetButtons(gameModel.getBoard());
+        resetButtons();
         onPlayAgainReset();
         gameModel.resetPlayer();
         showPlayAgainButton(false);
@@ -263,7 +259,7 @@ public class GameController implements Initializable {
     }
 
 
-    private void resetButtons(int[][] board) {
+    private void resetButtons() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 Button button = buttons[i][j];
