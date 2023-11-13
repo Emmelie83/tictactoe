@@ -136,7 +136,6 @@ public class GameController implements Initializable {
         String stringBoard = mappingService.boardToString(board);
         gameModel.currentBoardString = stringBoard;
         HttpPublish.sendGameState(stringBoard, Command.NONE.toString());
-        //flowPane.setDisable(true);
         disableFlowPane(true);
     }
 
@@ -184,19 +183,16 @@ public class GameController implements Initializable {
     }
 
     public void setPlayAgainButtonIfCurrentPlayerWon() {
-        //on PLAYERVSCOMPUTER button is always shown
         if(gameModel.getGameMode() == GameMode.PLAYERVSCOMPUTER) {
             showPlayAgainButton(true);
             return;
         }
 
-        //on PLAYERVSPLAYER Draw Player1 gets play Button
         Player winner = gameModel.getWinner();
         if(winner == Player.NONE && this.gameModel.getCurrentPlayer() == Player.PLAYER1) {
             showPlayAgainButton(true);
         }
 
-        //on PLAYERVSPLAYER if current Player wins he gets the PlayAgainButton
         if(winner == this.gameModel.getCurrentPlayer()) {
             showPlayAgainButton(true);
         }

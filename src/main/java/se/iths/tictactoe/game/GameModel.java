@@ -18,15 +18,14 @@ public class GameModel {
 
     private Player currentPlayer = Player.NONE;
     private GameMode gameMode = GameMode.NONE;
-    private MinMax minMax = new MinMax(this);
-    private MappingService mappingService = new MappingService();
+    private final MinMax minMax = new MinMax(this);
+    private static final MappingService mappingService = new MappingService();
 
 
     public GameModel() {
         this.board = new int[BOARD_SIZE][BOARD_SIZE];
         resetPlayer();
     }
-
 
     public int[][] getBoard() {
         return board;
@@ -158,7 +157,6 @@ public class GameModel {
 
         return Player.NONE;
     }
-
 
     private void updateScore() {
         if (winner == Player.PLAYER1) playerXScore++;
