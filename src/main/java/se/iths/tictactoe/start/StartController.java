@@ -34,7 +34,6 @@ public class StartController {
         Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/difficulty-view.fxml")));
         Scene tableViewScene = new Scene(tableViewParent);
 
-
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(tableViewScene);
