@@ -1,4 +1,4 @@
-package se.iths.tictactoe.game;
+package se.iths.tictactoe.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import se.iths.tictactoe.enums.GameMode;
 import se.iths.tictactoe.enums.Player;
 import se.iths.tictactoe.enums.Command;
+import se.iths.tictactoe.game.GameModel;
 import se.iths.tictactoe.server.HttpConsume;
 import se.iths.tictactoe.server.HttpPublish;
 import se.iths.tictactoe.services.MappingService;
@@ -94,10 +95,7 @@ public class GameController implements Initializable {
     public void prepareGame(GameMode gameMode) {
         gameModel.setGameMode(gameMode);
         initializeButtons();
-        if (gameMode == GameMode.PLAYERVSPLAYER) {
-            HttpConsume.startClient(this, this.gameModel);
-        }
-
+        if (gameMode == GameMode.PLAYERVSPLAYER) HttpConsume.startClient(this, this.gameModel);
     }
 
 
@@ -129,7 +127,7 @@ public class GameController implements Initializable {
     }
 
     private void vsPlayerPlayersTurn(int i, int j) throws IOException, InterruptedException {
-        gameModel.gameModePlayerVsPlayerSetPlayer1();
+        gameModel.vsPlayerSetPlayer1();
         int[][] board = gameModel.getBoard();
         gameModel.isBoardSet(board, i, j, gameModel.getCurrentPlayer());
         setButton(i, j, gameModel.getCurrentPlayer());
@@ -163,13 +161,13 @@ public class GameController implements Initializable {
             System.out.println(tag + " setButtons() " + e);
         }
     }
+
     private void setButtonByBoard(int i, int j, Player player) {
         if (player ==  Player.NONE) {
             buttons[i][j].setText(mappingService.getValueFromPlayerEnum(player));
             buttons[i][j].setDisable(false);
             return;
         }
-
         buttons[i][j].setText(mappingService.getValueFromPlayerEnum(player));
         buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(player));
         buttons[i][j].setDisable(true);
@@ -179,7 +177,6 @@ public class GameController implements Initializable {
         buttons[i][j].setText(mappingService.getValueFromPlayerEnum(currentPlayer));
         buttons[i][j].setTextFill(mappingService.getColorFromPlayerEnum(currentPlayer));
         buttons[i][j].setDisable(true);
-
     }
 
     public void setPlayAgainButtonIfCurrentPlayerWon() {
@@ -189,13 +186,8 @@ public class GameController implements Initializable {
         }
 
         Player winner = gameModel.getWinner();
-        if(winner == Player.NONE && this.gameModel.getCurrentPlayer() == Player.PLAYER1) {
-            showPlayAgainButton(true);
-        }
-
-        if(winner == this.gameModel.getCurrentPlayer()) {
-            showPlayAgainButton(true);
-        }
+        if(winner == Player.NONE && this.gameModel.getCurrentPlayer() == Player.PLAYER1) showPlayAgainButton(true);
+        if(winner == this.gameModel.getCurrentPlayer()) showPlayAgainButton(true);
     }
 
     private void disableAllButtons() {
@@ -238,7 +230,6 @@ public class GameController implements Initializable {
         onPlayAgainReset();
         gameModel.resetPlayer();
         showPlayAgainButton(false);
-
         if(gameModel.getGameMode() == GameMode.PLAYERVSCOMPUTER) return;
         gameModel.resetCurrentBoardString();
         gameModel.currentBoardString = mappingService.boardToString(gameModel.getBoard());
@@ -254,7 +245,6 @@ public class GameController implements Initializable {
         playAgainButton.setVisible(showButton);
     }
 
-
     private void resetButtons() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
@@ -263,7 +253,6 @@ public class GameController implements Initializable {
             }
         }
     }
-
 
     public void resetButton(Button button){
         button.setDisable(false);

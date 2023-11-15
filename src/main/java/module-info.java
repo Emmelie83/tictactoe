@@ -20,4 +20,6 @@ module se.iths.tictactoe {
     opens se.iths.tictactoe.difficulty to javafx.fxml;
     exports se.iths.tictactoe.enums;
     opens se.iths.tictactoe.enums to javafx.fxml;
+    exports se.iths.tictactoe.controller;
+    opens se.iths.tictactoe.controller to javafx.fxml;
 }

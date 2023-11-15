@@ -2,7 +2,7 @@ package se.iths.tictactoe.server;
 
 import javafx.application.Platform;
 import se.iths.tictactoe.enums.Command;
-import se.iths.tictactoe.game.GameController;
+import se.iths.tictactoe.controller.GameController;
 import se.iths.tictactoe.game.GameModel;
 import se.iths.tictactoe.services.MappingService;
 
@@ -24,7 +24,7 @@ public class HttpConsume {
     public static void startClient(GameController gameController, GameModel gameModel) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(HttpConsume.url)) // raw = one line per message
+                .uri(URI.create(HttpConsume.url))
                 .build();
 
         client.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
@@ -57,7 +57,7 @@ public class HttpConsume {
     private static void updateBoard(boolean isYourTurn,  String board, GameController gameController, GameModel gameModel) {
         if(!isYourTurn) return;
 
-        gameModel.gameModePlayerVsPlayerSetPlayer2();
+        gameModel.vsPlayerSetPlayer2();
 
         int[][] newBoard = mappingService.stringToBoard(board);
         gameModel.setNewBoard(newBoard);

@@ -42,16 +42,12 @@ public class GameModel {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-    void gameModePlayerVsPlayerSetPlayer1() {
-        if(currentPlayer == Player.NONE) {
-            currentPlayer = Player.PLAYER1;
-        }
+    public void vsPlayerSetPlayer1() {
+        if(currentPlayer == Player.NONE) currentPlayer = Player.PLAYER1;
     }
 
-    public void gameModePlayerVsPlayerSetPlayer2() {
-        if(currentPlayer == Player.NONE) {
-            currentPlayer = Player.PLAYER2;
-        }
+    public void vsPlayerSetPlayer2() {
+        if(currentPlayer == Player.NONE) currentPlayer = Player.PLAYER2;
     }
 
     public Player getWinner() {
@@ -72,19 +68,14 @@ public class GameModel {
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
-        if (gameMode == GameMode.PLAYERVSCOMPUTER) {
-            currentPlayer = Player.PLAYER1;
-        }
+        if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
     }
-
 
     public int[] computerMove(int difficulty) {
         int[] bestMove = minMax.findBestMove(board);
         Random random = new Random();
         int randomNumber = random.nextInt(100);
-        if (randomNumber <= difficulty) {
-            return bestMove;
-        }
+        if (randomNumber <= difficulty) return bestMove;
         return randomMove();
     }
 
@@ -101,7 +92,6 @@ public class GameModel {
         return new int[] {i ,j };
     }
 
-
     public void changePlayer() {
             if (currentPlayer == Player.PLAYER1) currentPlayer = Player.COMPUTER;
             else currentPlayer = Player.PLAYER1;
@@ -109,7 +99,6 @@ public class GameModel {
 
     public void resetPlayer() {
         if (gameMode == GameMode.PLAYERVSCOMPUTER) currentPlayer = Player.PLAYER1;
-        //else currentPlayer = Player.NONE;
     }
 
     public boolean isBoardSet(int[][] board, int i, int j, Player player) {
