@@ -2,7 +2,6 @@ package se.iths.tictactoe.game;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import se.iths.tictactoe.game.GameModel;
 import se.iths.tictactoe.enums.Player;
 
 import java.util.Arrays;

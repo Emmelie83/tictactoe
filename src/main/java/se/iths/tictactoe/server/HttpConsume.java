@@ -46,7 +46,7 @@ public class HttpConsume {
                                 executeCommand(isYourTurn, command, gameController);
                                 gameController.isGameOver();
                             }catch (Exception e) {
-                                System.out.println(HttpConsume.tag + " " + e.toString());
+                                System.out.println(HttpConsume.tag + " " + e);
                             }
 
                         });
@@ -83,7 +83,6 @@ public class HttpConsume {
     }
 
     private static boolean isYourTurn(String board, GameController gameController) {
-        if(Objects.equals(board, gameController.getCurrentBoardString())) return false;
-        return true;
+        return !Objects.equals(board, gameController.getCurrentBoardString());
     }
 }
