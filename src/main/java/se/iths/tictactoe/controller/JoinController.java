@@ -1,4 +1,4 @@
-package se.iths.tictactoe.player;
+package se.iths.tictactoe.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

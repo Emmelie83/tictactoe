@@ -12,8 +12,6 @@ module se.iths.tictactoe {
     opens se.iths.tictactoe.start to javafx.fxml;
     exports se.iths.tictactoe.server;
     opens se.iths.tictactoe.server to javafx.fxml;
-    exports se.iths.tictactoe.player;
-    opens se.iths.tictactoe.player to javafx.fxml;
     exports se.iths.tictactoe.services;
     opens se.iths.tictactoe.services to javafx.fxml;
     exports se.iths.tictactoe.enums;
