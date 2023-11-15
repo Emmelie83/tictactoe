@@ -4,34 +4,34 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.tictactoe.controller.DifficultyController">
-   <children>
-       <Text fill="#801f9a" layoutX="202.0" layoutY="89.0" text="Tic-Tac-Toe">
-           <font>
-               <Font size="38.0" />
-           </font>
-       </Text>
-      <Button fx:id="difficultyButton" layoutX="281.0" layoutY="271.0" mnemonicParsing="false" onAction="#switchToGameView" text="OK!">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.tictactoe.controller.DifficultyController">
+   <Text fill="#801f9a" layoutX="202.0" layoutY="89.0" text="Tic-Tac-Toe">
+      <font>
+         <Font size="38.0"/>
+      </font>
+   </Text>
+   <Button fx:id="difficultyButton" layoutX="281.0" layoutY="271.0" mnemonicParsing="false" onAction="#switchToGameView"
+           text="OK!">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Button>
 
-      <Label layoutX="225.0" layoutY="131.0" text="Chose difficulty" textFill="#801f9a">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
-      <ScrollBar fx:id="difficulty" layoutX="135.0" layoutY="200.0" prefHeight="32.0" prefWidth="345.0" />
-      <Label layoutX="116.0" layoutY="203.0" text="0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="487.0" layoutY="203.0" text="100">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-   </children>
+   <Label layoutX="225.0" layoutY="131.0" text="Chose difficulty" textFill="#801f9a">
+      <font>
+         <Font size="22.0"/>
+      </font>
+   </Label>
+   <ScrollBar fx:id="difficulty" layoutX="135.0" layoutY="200.0" prefHeight="32.0" prefWidth="345.0"/>
+   <Label layoutX="116.0" layoutY="203.0" text="0">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Label>
+   <Label layoutX="487.0" layoutY="203.0" text="100">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Label>
 </AnchorPane>

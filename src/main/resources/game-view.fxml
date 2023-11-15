@@ -5,80 +5,102 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.tictactoe.controller.GameController">
-    <children>
-        <Text fx:id="winnerText" fill="#801f9a" layoutX="181.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic-Tac-Toe" textAlignment="CENTER" wrappingWidth="237.9443359375">
-            <font>
-                <Font size="38.0" />
-            </font>
-        </Text>
-        <FlowPane fx:id="flowPane" layoutX="178.0" layoutY="113.0" prefHeight="240.0" prefWidth="244.0">
-            <children>
-                <Button fx:id="button1" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button3" layoutX="85.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button4" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button5" layoutX="10.0" layoutY="85.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button6" layoutX="85.0" layoutY="85.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button7" layoutX="160.0" layoutY="85.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button8" layoutX="10.0" layoutY="160.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-                <Button fx:id="button9" layoutX="85.0" layoutY="160.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-            </children>
-        </FlowPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="se.iths.tictactoe.controller.GameController">
+    <effect>
+        <Blend/>
+    </effect>
+    <Text fx:id="winnerText" fill="#801f9a" layoutX="181.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Tic-Tac-Toe" textAlignment="CENTER" wrappingWidth="237.9443359375">
+        <font>
+            <Font size="38.0"/>
+        </font>
+    </Text>
+    <FlowPane fx:id="flowPane" layoutX="178.0" layoutY="113.0" prefHeight="240.0" prefWidth="244.0">
+        <children>
+            <Button fx:id="button1" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button3" layoutX="85.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button4" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button5" layoutX="10.0" layoutY="85.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button6" layoutX="85.0" layoutY="85.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button7" layoutX="160.0" layoutY="85.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button8" layoutX="10.0" layoutY="160.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            <Button fx:id="button9" layoutX="85.0" layoutY="160.0" mnemonicParsing="false" prefHeight="80.0"
+                    prefWidth="80.0">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+        </children>
+    </FlowPane>
 
-        <Button fx:id="playAgainButton" layoutX="178.0" layoutY="400.0" mnemonicParsing="false" onAction="#playAgain" text="Play again" visible="false">
-         <font>
-            <Font size="18.0" />
-         </font></Button>
-      <Button fx:id="closeButton" layoutX="320.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" text="Exit game">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Label layoutX="473.0" layoutY="165.0" text="Score" textFill="#801f9a">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-      <Label fx:id="scoreText" layoutX="480.0" layoutY="216.0" text="0 - 0" textFill="#801f9a">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-      <Label layoutX="486.0" layoutY="263.0" text="X" />
-      <Label layoutX="532.0" layoutY="263.0" text="0">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-    </children>
-   <effect>
-      <Blend />
-   </effect>
+    <Button fx:id="playAgainButton" layoutX="178.0" layoutY="400.0" mnemonicParsing="false" onAction="#playAgain"
+            text="Play again" visible="false">
+        <font>
+        <Font size="18.0"/>
+        </font>
+    </Button>
+    <Button fx:id="closeButton" layoutX="320.0" layoutY="400.0" mnemonicParsing="false"
+            onAction="#handleCloseButtonAction" text="Exit game">
+        <font>
+          <Font size="18.0"/>
+        </font>
+    </Button>
+    <Label layoutX="473.0" layoutY="165.0" text="Score" textFill="#801f9a">
+        <font>
+          <Font size="32.0"/>
+        </font>
+    </Label>
+    <Label fx:id="scoreText" layoutX="480.0" layoutY="216.0" text="0 - 0" textFill="#801f9a">
+        <font>
+          <Font size="32.0"/>
+        </font>
+    </Label>
+    <Label layoutX="486.0" layoutY="263.0" text="X"/>
+    <Label layoutX="532.0" layoutY="263.0" text="0">
+        <font>
+          <Font size="14.0"/>
+        </font>
+    </Label>
 </AnchorPane>

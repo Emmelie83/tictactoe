@@ -10,6 +10,7 @@ import se.iths.tictactoe.controller.GameController;
 import se.iths.tictactoe.enums.GameMode;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class StartController {
 
@@ -30,7 +31,7 @@ public class StartController {
 
     public void switchToDifficultyView(ActionEvent event) throws IOException
     {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/difficulty-view.fxml"));
+        Parent tableViewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/difficulty-view.fxml")));
         Scene tableViewScene = new Scene(tableViewParent);
 
 
